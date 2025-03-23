@@ -17,12 +17,11 @@ def get_image_names():
     random.shuffle(background_images)
     random.shuffle(people_images)
 
-    min_length = min(len(background_images), len(people_images))
+    total_length = len(people_images)
 
     # Get 10 random pairs
-    for i in range(min_length):
-        background = background_images[i]
-        person = people_images[i]
+    for background in background_images:
+        person = people_images[random.randint(0, total_length - 1)]
         generate_testing_list.append(list(( os.path.join(people_dir, person), os.path.join(background_dir, background), 10, 100)))
 
     
