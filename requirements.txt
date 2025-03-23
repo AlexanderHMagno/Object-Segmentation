@@ -5,3 +5,4 @@ datasets
 opencv-python
 gradio
 numpy
+scikit-image

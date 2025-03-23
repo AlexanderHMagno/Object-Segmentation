@@ -1,7 +1,7 @@
 import gradio as gr
 import numpy as np
 from PIL import Image
-from utils import load_model, segment_person, resize_image
+from utils import load_model, segment_person, resize_image, split_stereo_image
 
 # Load model and processor once
 processor, model = load_model()
@@ -15,29 +15,38 @@ default_bg = Image.new("RGB", (512, 512), color=(95, 147, 89))
 
 def generate_3d_outputs(person_img, background_img=None, shift_pixels=10,  person_size=100):
     # Resize images to match
-    image = resize_image(person_img, person_size)
+    image = person_img
+    background_img = background_img if background_img is not None else default_bg
 
-    if background_img is None:
-        background = default_bg.resize(image.size)
-    else:
-        background = Image.fromarray(background_img).convert("RGB").resize(image.size)
 
+    # Split background image into left and right halves
+    leftBackground, rightBackground = split_stereo_image(Image.fromarray(background_img))
+
+    # Resize image to match background dimensions
+
+    
+    image = Image.fromarray(np.array(image)).resize((leftBackground.shape[1], leftBackground.shape[0]))
     # Step 1: Segment person
     mask = segment_person(image, processor, model)
 
     image_np = np.array(image)
-    background_np = np.array(background)
+
+    leftBackground_np = np.array(leftBackground)
+    rightBackground_np = np.array(rightBackground)
+
 
     person_only = image_np * mask
-    background_only = background_np * (1 - mask)
+    leftBackground_only = leftBackground_np * (1 - mask)
+    rightBackground_only = rightBackground_np * (1 - mask)
 
     # Step 2: Create stereo pair
     person_left = np.roll(person_only, shift=-shift_pixels, axis=1)
     person_right = np.roll(person_only, shift=shift_pixels, axis=1)
+    
 
-    left_eye = np.clip(person_left + background_only, 0, 255).astype(np.uint8)
-    right_eye = np.clip(person_right + background_only, 0, 255).astype(np.uint8)
-
+    left_eye = np.clip(person_right + leftBackground_only, 0, 255).astype(np.uint8)
+    right_eye = np.clip(person_left + rightBackground_only, 0, 255).astype(np.uint8)
+    person_segmentation = np.clip(person_only, 0, 255).astype(np.uint8)
 
     # --- Combine left and right images side by side ---
     stereo_pair = np.concatenate([left_eye, right_eye], axis=1)
@@ -54,7 +63,7 @@ def generate_3d_outputs(person_img, background_img=None, shift_pixels=10,  perso
     left_img = Image.fromarray(left_eye)
     right_img = Image.fromarray(right_eye)
 
-    return anaglyph_img, stereo_image
+    return person_segmentation, stereo_image, anaglyph_img
 
 # Gradio Interface
 demo = gr.Interface(
@@ -67,8 +76,9 @@ demo = gr.Interface(
   
     ],
     outputs=[
-        gr.Image(label="3D Anaglyph Image"),
+        gr.Image(label="segmentation mask"),
         gr.Image(label="Stereo_pair"),
+        gr.Image(label="3D Anaglyph Image")
     ],
     title="3D Person Segmentation Viewer",
     description="Upload a person photo and optionally a background image. Outputs anaglyph and stereo views."

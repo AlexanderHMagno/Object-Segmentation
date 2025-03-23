@@ -3,6 +3,7 @@ import numpy as np
 from PIL import Image
 import cv2
 from transformers import AutoImageProcessor, SegformerForSemanticSegmentation
+from imagehash import average_hash
 
 def load_model():
     processor = AutoImageProcessor.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
@@ -56,3 +57,40 @@ def resize_image(image, size_percent):
   resized_image.paste(scaled_content, (x, y))
   
   return resized_image
+
+# Check if two images are similar
+def check_image_similarity(image1, image2):
+ 
+    hash1 = average_hash(Image.fromarray(image1))
+    hash2 = average_hash(Image.fromarray(image2)) 
+    return hash1 - hash2  < 10
+
+
+def split_stereo_image(image):
+    """
+    Splits an image into left and right halves for stereographic viewing.
+    
+    Args:
+        image: PIL Image or numpy array
+        
+    Returns:
+        tuple: (left_half, right_half) as numpy arrays
+    """
+    # Convert to numpy array if PIL Image
+    if isinstance(image, Image.Image):
+        image = np.array(image)
+        
+    # Get width and calculate split point
+    width = image.shape[1]
+    split_point = width // 2
+    
+    # Split into left and right halves
+    left_half = image[:, :split_point]
+    right_half = image[:, split_point:]
+
+    #If stereo image is provided, return left and right halves
+    if check_image_similarity(left_half, right_half):
+        return left_half, right_half
+    else:
+        return image, resize_image(image, 99)
+    
