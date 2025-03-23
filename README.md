@@ -1,3 +1,4 @@
+---
 title: Object Segmentation
 emoji: 👁
 colorFrom: gray
@@ -6,6 +7,7 @@ sdk: gradio
 sdk_version: 5.22.0
 app_file: src/app.py
 pinned: false
+---
 
 # 3D Person Segmentation and Anaglyph Generatio
 ## Lab Report
