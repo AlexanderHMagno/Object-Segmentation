@@ -15,7 +15,7 @@ default_bg = Image.new("RGB", (512, 512), color=(95, 147, 89))
 
 def generate_3d_outputs(person_img, background_img=None, shift_pixels=10,  person_size=100):
     # Resize images to match
-    image = person_img
+    image = resize_image(person_img, person_size)
     background_img = background_img if background_img is not None else default_bg
 
 
