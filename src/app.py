@@ -2,7 +2,7 @@ import gradio as gr
 import numpy as np
 from PIL import Image
 from utils import load_model, segment_person, resize_image, split_stereo_image
-
+from testing import get_image_names
 # Load model and processor once
 processor, model = load_model()
 
@@ -80,6 +80,7 @@ demo = gr.Interface(
         gr.Image(label="Stereo_pair"),
         gr.Image(label="3D Anaglyph Image")
     ],
+    examples= get_image_names(),
     title="3D Person Segmentation Viewer",
     description="Upload a person photo and optionally a background image. Outputs anaglyph and stereo views."
 )
