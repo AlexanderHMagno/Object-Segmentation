@@ -1,5 +1,15 @@
 # 3D Person Segmentation and Anaglyph Generation
 
+title: Object Segmentation
+emoji: 👁
+colorFrom: gray
+colorTo: pink
+sdk: gradio
+sdk_version: 5.22.0
+app_file: src/app.py
+pinned: false
+
+
 ## Lab Report
 
 ### Introduction
