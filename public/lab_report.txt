@@ -1,0 +1,131 @@
+3D Person Segmentation and Anaglyph Generation - Lab Report
+=================================================
+
+Introduction
+------------
+In this project, I developed a sophisticated 3D image processing system that combines modern AI-powered person segmentation with classical stereoscopic image processing. The main objectives were successfully accomplished:
+
+1. Implementation of accurate person segmentation using SegFormer AI model
+2. Creation of stereoscopic 3D effects from 2D images
+3. Generation of red-cyan anaglyph images for 3D viewing
+4. Development of an interactive web interface
+5. Implementation of intelligent mask alignment for varying image sizes
+
+The project is accessible at: https://huggingface.co/spaces/axelhortua/Object-segmentation
+
+Methodology
+-----------
+The implementation followed a systematic approach using various tools and technologies:
+
+1. Tools Selection:
+   - SegFormer (nvidia/segformer-b0) for semantic segmentation
+   - PyTorch for deep learning implementation
+   - OpenCV for image processing
+   - Gradio for web interface
+   - NumPy for array operations
+   - PIL for image handling
+
+2. Implementation Process:
+
+   a) Person Segmentation:
+      - Used SegFormer model fine-tuned on ADE20K dataset
+      - Applied post-processing with erosion and Gaussian blur
+      - Implemented dynamic mask scaling and centering
+
+   b) Mask Processing:
+      - Developed dynamic mask resizing system
+      - Implemented transparent padding
+      - Ensured proper aspect ratio maintenance
+      - Created centered alignment algorithm
+
+   c) Stereoscopic Processing:
+      - Implemented horizontal pixel shifting for depth simulation
+      - Created parallel view stereo pair generation
+      - Added configurable interaxial distance
+      - Enhanced stereo pair alignment
+
+   d) Anaglyph Generation:
+      - Implemented color channel separation
+      - Created background integration system
+      - Developed foreground-background blending
+      - Optimized 3D effect quality
+
+Results
+-------
+The system successfully produces three main outputs:
+
+1. Segmentation Mask:
+   - Clean person isolation
+   - Proper transparency handling
+   - Accurate edge detection
+   - Smooth mask transitions
+
+2. Stereo Pair:
+   - Side-by-side stereo image
+   - Configurable depth effect
+   - Proper alignment between pairs
+   - Maintained image quality
+
+3. Anaglyph Output:
+   - Red-cyan 3D image
+   - Adjustable 3D effect strength
+   - Clean color separation
+   - Minimal ghosting artifacts
+
+Key Features Achieved:
+- Person size adjustment (10-200%)
+- Interaxial distance control (0-10 pixels)
+- Custom background support
+- Real-time processing and preview
+- Intelligent mask alignment
+- Transparent background handling
+
+Discussion
+----------
+Technical Challenges Faced:
+
+1. Mask Alignment:
+   - Complex handling of different image dimensions
+   - Maintaining proper aspect ratios
+   - Ensuring consistent centering
+   - Handling edge cases
+
+2. Stereo Effect Quality:
+   - Balancing interaxial distance
+   - Minimizing visual artifacts
+   - Maintaining comfortable viewing experience
+   - Preserving image details
+
+3. Performance Optimization:
+   - Efficient large image processing
+   - Real-time interface responsiveness
+   - Memory management
+   - Processing speed optimization
+
+4. Transparency Handling:
+   - Proper alpha channel management
+   - Clean edge preservation
+   - Consistent transparency across operations
+   - Background integration
+
+Learning Outcomes:
+- Deep understanding of stereoscopic image generation
+- Practical experience with AI models
+- Advanced image processing techniques
+- Web interface development skills
+- Complex system integration experience
+
+Conclusion
+----------
+The project successfully demonstrates the integration of AI-powered segmentation with classical stereoscopic techniques. The system provides an accessible way to create 3D effects from regular 2D images, with robust handling of different image sizes and proper transparency management.
+
+Future Work:
+1. Implementation of depth-aware 3D effect generation
+2. Addition of video processing capabilities
+3. Support for additional 3D viewing formats
+4. Enhanced background replacement options
+5. Mobile device optimization
+6. Advanced depth map generation
+7. Multi-person segmentation support
+
+The project has laid a strong foundation for future developments in 3D image processing and demonstrates the potential of combining AI with traditional image processing techniques. 
