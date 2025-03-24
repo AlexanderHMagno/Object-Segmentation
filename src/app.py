@@ -93,7 +93,7 @@ demo = gr.Interface(
     inputs=[
         gr.Image(label="Person Image"),
         gr.Image(label="Optional Background Image"),
-        gr.Slider(minimum=0, maximum=10, step=1, value=10, label="interaxial distance"),
+        gr.Slider(minimum=0, maximum=20, step=1, value=10, label="interaxial distance"),
         gr.Slider(minimum=10, maximum=200, step=10, value=100, label="Person Size %"),
   
     ],

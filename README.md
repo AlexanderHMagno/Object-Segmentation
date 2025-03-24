@@ -11,6 +11,26 @@ pinned: false
 
 # 3D Person Segmentation and Anaglyph Generation
 
+[![Open in Spaces](https://img.shields.io/badge/🤗-Open%20in%20Spaces-blue.svg)](https://huggingface.co/spaces/axelhortua/Object-segmentation)
+
+## Documentation Examples
+
+### Input and Segmentation
+![Input Image and Segmentation](public/images/documentation/input_segmentation.png)
+*Example of original input image and its segmentation mask*
+
+### Stereo Processing
+![Stereo Processing](public/images/documentation/stereo_process.png)
+*Demonstration of stereo pair generation with different interaxial distances*
+
+### Anaglyph Output
+![Anaglyph Result](public/images/documentation/anaglyph_output.png)
+*Final anaglyph output with red-cyan 3D effect*
+
+### Interface Overview
+![Gradio Interface](public/images/documentation/interface.png)
+*The Gradio web interface with all adjustment controls*
+
 ## Lab Report
 
 ### Introduction
