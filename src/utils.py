@@ -94,3 +94,61 @@ def split_stereo_image(image):
     else:
         return image, resize_image(image, 99)
     
+def resize_image_to_width(person_img, background_img):
+       # Resize image to match background dimensions
+    if (background_img.shape[1] > background_img.shape[0]):
+        width = background_img.shape[1]
+        img_array = np.array(person_img)
+        height = int(width * img_array.shape[0] / img_array.shape[1])
+        person_img = Image.fromarray(img_array).resize((width, height))
+        person_img = np.array(person_img)
+        image = Image.fromarray(person_img)
+    else:
+        height = background_img.shape[0]
+        img_array = np.array(person_img)
+        width = int(height * img_array.shape[1] / img_array.shape[0])
+        person_img = Image.fromarray(img_array).resize((width, height))
+        person_img = np.array(person_img)
+        image = Image.fromarray(person_img)
+
+
+    return image
+
+def resize_mask(person_size, mask):
+        
+    scale_factor = person_size / 100.0
+    mask_height, mask_width = mask.shape[:2]
+    new_height = int(mask_height * scale_factor)
+    new_width = int(mask_width * scale_factor)
+    
+    # Convert mask to PIL Image for resizing
+    mask_image = Image.fromarray((mask * 255).astype(np.uint8))
+    resized_mask = mask_image.resize((new_width, new_height))
+    
+    # Convert back to numpy and normalize to 0-1
+    mask = np.array(resized_mask).astype(np.float32) / 255.0
+    
+    # Add third channel dimension back if needed
+    if len(mask.shape) == 2:
+        mask = np.stack([mask] * 3, axis=-1)
+
+    return mask
+
+def resize_images(image, person_size):
+    image_np = np.array(image)
+    # Resize image based on person_size percentage
+
+    scale_factor = person_size / 100.0
+    img_height, img_width = image_np.shape[:2]
+    new_height = int(img_height * scale_factor)
+    new_width = int(img_width * scale_factor)
+    
+    # Convert image to PIL Image for resizing
+    image_pil = Image.fromarray(image_np)
+    resized_image = image_pil.resize((new_width, new_height))
+    
+    # Convert back to numpy
+    image = resized_image
+    image_np = np.array(image)
+
+    return image_np
