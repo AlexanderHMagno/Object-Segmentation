@@ -16,22 +16,21 @@ pinned: false
 ## Documentation Examples
 
 ### Input and Segmentation
-![Input Image and Segmentation](public/images/documentation/input_segmentation.png)
+![Input Image and Segmentation](public/images/documentation/Mask.png)
 *Example of original input image and its segmentation mask*
 
 ### Stereo Processing
-![Stereo Processing](public/images/documentation/stereo_process.png)
+![Stereo Processing](public/images/documentation/Stereo.png)
 *Demonstration of stereo pair generation with different interaxial distances*
 
 ### Anaglyph Output
-![Anaglyph Result](public/images/documentation/anaglyph_output.png)
+![Anaglyph Result](public/images/documentation/Anaglyph.png)
 *Final anaglyph output with red-cyan 3D effect*
 
-### Interface Overview
-![Gradio Interface](public/images/documentation/interface.png)
-*The Gradio web interface with all adjustment controls*
-
 ## Lab Report
+
+[Read the full report](public/Project%204%20Report.pdf)
+
 
 ### Introduction
 This project implements a sophisticated 3D image processing system that combines person segmentation with stereoscopic and anaglyph image generation. The main objectives were to:
